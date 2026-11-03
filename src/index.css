@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ivory: #f7f5f0;
+  --beige: #e8e1d7;
+  --charcoal: #242424;
+  --taupe: #a89b8c;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Offset anchored scrolls so the sticky header doesn't cover section tops */
+  scroll-padding-top: 88px;
+}
+
+body {
+  @apply bg-ivory text-charcoal font-sans antialiased;
+  font-feature-settings: 'liga' 1, 'kern' 1;
+}
+
+@layer base {
+  h1, h2, h3, h4 {
+    @apply font-serif font-medium;
+  }
+}
+
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-img {
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-img.is-visible {
+    clip-path: inset(0 0 0% 0);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .img-lift {
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .img-lift:hover {
+    transform: scale(1.05);
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .edge-line {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    background-position: 0 100%;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: var(--ivory);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--taupe);
+  border-radius: 8px;
+  border: 2px solid var(--ivory);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8a7e70;
+}
+
+::selection {
+  background: var(--charcoal);
+  color: var(--ivory);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal,
+  .reveal-img {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+}
